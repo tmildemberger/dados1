@@ -1,0 +1,18 @@
+builddir = ninja
+CC = gcc
+rule compile_c
+  command = $CC ${c_flags} -MMD -MT $out -MF $out.dep -c $in -o $out
+  description = compile(c) $out
+  depfile = $out.dep
+  deps = gcc
+
+LINKER_EXE = g++
+rule link_exe
+  command = $LINKER_EXE ${ld_flags} -o $out $in ${ld_libs}
+  description = link(exe) $out
+
+build obj/exemplo.c.o: compile_c exemplo.c
+  c_flags = -Wall -Wextra -Wformat-nonliteral -Wcast-align -Wpointer-arith -Wbad-function-cast -Wmissing-prototypes -Wmissing-declarations -Winline -Wundef -Wnested-externs -Wcast-qual -Wshadow -Wwrite-strings -Wfloat-equal -pedantic -std=c99 
+build obj/fila.c.o: compile_c fila.c
+  c_flags = -Wall -Wextra -Wformat-nonliteral -Wcast-align -Wpointer-arith -Wbad-function-cast -Wmissing-prototypes -Wmissing-declarations -Winline -Wundef -Wnested-externs -Wcast-qual -Wshadow -Wwrite-strings -Wfloat-equal -pedantic -std=c99 
+build fila: link_exe obj/exemplo.c.o obj/fila.c.o
