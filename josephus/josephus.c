@@ -15,11 +15,14 @@ int main(int argc, char *argv[]) {
     for (i = 1; i <= n; ++i) {
         enqueue(f, i);
     }
-    for (i = 0; i < n - 1; ++i) {
+    while (!empty_queue(f)) {
         int j;
-        for (j = 0; j < m; ++j) {
+        for (j = 1; j < m; ++j) {
             enqueue(f, dequeue(f));
         }
+        printf("%d ", dequeue(f));
     }
+    printf("\n");
+    destroy_queue(f);
     return 0;
 }
