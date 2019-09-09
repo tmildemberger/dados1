@@ -1,0 +1,2 @@
+exec test_queue ../queue/queue.c test_queue.c
+exec test_stack ../stack/stack.c test_stack.c
